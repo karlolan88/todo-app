@@ -19,7 +19,7 @@ function App() {
 
   const handleComplete = (id) => {
     setTodos(
-      todos.map(todo => (todo.id === id ? { ...todo, isComplete: true } : todo))
+      todos.map(todo => (todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo))
     );
   };
 
@@ -30,23 +30,29 @@ function App() {
   };
 
   const handleSave = (id, newText) => {
-    setTodos(
-      todos.map(todo =>
-        todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
-      )
-    );
+    if (newText.trim()) {
+      setTodos(
+        todos.map(todo =>
+          todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
+        )
+      );
+    } else {
+      alert('Todo text cannot be empty!');
+    }
   };
 
   return (
     <div className="App">
       <h1>Todo List</h1>
-      <input
-        type="text"
-        value={todoInput}
-        onChange={(e) => setTodoInput(e.target.value)}
-        placeholder="Add a todo"
-      />
-      <button onClick={addTodo}>Add</button>
+      <div className="todo-input">
+        <input
+          type="text"
+          value={todoInput}
+          onChange={(e) => setTodoInput(e.target.value)}
+          placeholder="Add a todo"
+        />
+        <button onClick={addTodo}>Add</button>
+      </div>
 
       {todos.length === 0 ? (
         <p>No todos available. Add a todo to get started!</p>
