@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 
 function TodoList({ todos, onRemove, onComplete, onEdit, onSave }) {
-  const [editText, setEditText] = useState('');
-  const [error, setError] = useState(false); // State to track error message
+  const [editTexts, setEditTexts] = useState({}); // Store edit text for each todo
+  const [error, setError] = useState({}); // Store error state for each todo
 
-  const handleEditChange = (e) => {
-    setEditText(e.target.value);
-    setError(false); // Clear error message when typing
+  const handleEditChange = (id, value) => {
+    setEditTexts((prev) => ({ ...prev, [id]: value })); // Update specific todo's edit text
+    setError((prev) => ({ ...prev, [id]: false })); // Clear error for that specific todo
   };
 
   const handleSaveClick = (id, todoText) => {
-    if (editText.trim() === '') {
-      setError(true); // Show error if the text is empty
+    const currentEditText = editTexts[id] || ''; // Get the current text for the todo
+    if (currentEditText.trim() === '') {
+      setError((prev) => ({ ...prev, [id]: true })); // Show error if the text is empty
     } else {
-      onSave(id, editText || todoText);
-      setEditText(''); // Reset edit text after save
-      setError(false); // Clear error
+      onSave(id, currentEditText);
+      setEditTexts((prev) => ({ ...prev, [id]: '' })); // Reset text for that specific todo
+      setError((prev) => ({ ...prev, [id]: false })); // Clear error for that specific todo
     }
   };
 
@@ -27,30 +28,22 @@ function TodoList({ todos, onRemove, onComplete, onEdit, onSave }) {
             <>
               <input
                 type="text"
-                value={editText === '' && !error ? todo.text : editText} // Allow clearing the text
-                onChange={handleEditChange}
+                value={editTexts[todo.id] === undefined ? todo.text : editTexts[todo.id]} // Handle per-todo text
+                onChange={(e) => handleEditChange(todo.id, e.target.value)} // Track per-todo changes
               />
               <button onClick={() => handleSaveClick(todo.id, todo.text)}>Save</button>
-              {error && <p style={{ color: 'red' }}>Todo text cannot be empty!</p>} {/* Error message */}
+              {error[todo.id] && <p style={{ color: 'red' }}>Todo text cannot be empty!</p>} {/* Error message */}
             </>
           ) : (
             <>
               <span>{todo.text}</span>
-              <button
-                onClick={() => onComplete(todo.id)}
-              >
+              <button onClick={() => onComplete(todo.id)}>
                 {todo.isComplete ? 'Undo' : 'Complete'}
               </button>
-              <button
-                onClick={() => onEdit(todo.id)}
-                disabled={todo.isComplete}
-              >
+              <button onClick={() => onEdit(todo.id)} disabled={todo.isComplete}>
                 Edit
               </button>
-              <button
-                onClick={() => onRemove(todo.id)}
-                disabled={todo.isComplete}
-              >
+              <button onClick={() => onRemove(todo.id)} disabled={todo.isComplete}>
                 Remove
               </button>
             </>
