@@ -4,45 +4,101 @@
   font-family: Arial, sans-serif;
 }
 
+body {
+  background-image: url('./images/retro.jpg');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  height: 100vh; 
+  margin: 0;
+}
+
 h1 {
   font-size: 3em;
   margin-bottom: 20px;
+  color:aqua /* Title text color */
 }
 
-.todo-input {
-  margin-bottom: 20px;
+
+/* Add todo input box and button */
+.add-todo-input {
+  transform: scale(0.9); /* Adjusts the size to 90% */
+  width: 100%; /* Ensures the input field spans the full width */
+  padding: 10px; /* Adds padding for better readability */
+  font-size: 16px; /* Sets the font size */
 }
 
 input[type="text"] {
-  font-size: 1.5em;
-  padding: 10px;
-  width: 300px;
+  font-size: 1.2em; /* Slightly smaller scale */
+  padding: 8px; /* Adjust padding for smaller size */
+  width: 250px; /* Adjust width for smaller size */
   margin-right: 10px;
 }
 
 button {
-  font-size: 1.2em;
-  padding: 10px 20px;
+  font-size: 1.1em;
+  padding: 8px 16px;
   cursor: pointer;
+  background-color: rgb(99, 90, 90); /* Button background color */
+  color: pink; /* Button text color */
 }
 
+.no-todos-message {
+  color: pink; /* Pink text color */
+  font-size: 18px; /* You can adjust the size as needed */
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Todo list container with transparent box and neon border */
+.todo-list-container {
+  border-color: 2px aqua;
+  background-color: rgba(92, 70, 70, 0.5); /* 50% transparent black background */
+  align-items: center;
+  max-width: 50%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+/* Todo items */
 .todo-list {
   list-style-type: none;
   padding: 0;
 }
 
 .todo-item {
-  font-size: 1.5em;
-  border: 2px solid #000;
+  font-size: 1.3em; /* Slightly smaller scale */
+  border-bottom: 1px solid neonblue; /* Neon blue border for todo text */
+  color:aqua;
   padding: 10px;
-  margin: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.todo-item button {
-  margin-left: 10px;
+.todo-item span {
+  color:aqua ; /* Activity text color */
 }
 
+.todo-item button {
+  margin-left: 10px;
+  background-color: black; /* Button background color */
+  color: pink; /* Button text color */
+  border-color: aqua;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+.todo-item button:hover {
+  background-color: neonblue; /* Hover effect */
+  color: rgb(229, 229, 229);
+}
+
+.todo-list-box {
+  background-color: rgba(0, 0, 0, 0.7); /* Black-gray transparent */
+  border: 2px solid aqua; /* Aqua border */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px aqua; /* Neon glow effect for the border */
+}

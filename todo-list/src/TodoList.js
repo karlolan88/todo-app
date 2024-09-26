@@ -21,6 +21,7 @@ function TodoList({ todos, onRemove, onComplete, onEdit, onSave }) {
   };
 
   return (
+    <div className="todo-list-container">
     <ul className="todo-list">
       {todos.map((todo) => (
         <li key={todo.id} className="todo-item" style={{ textDecoration: todo.isComplete ? 'line-through' : 'none' }}>
@@ -36,7 +37,13 @@ function TodoList({ todos, onRemove, onComplete, onEdit, onSave }) {
             </>
           ) : (
             <>
-              <span>{todo.text}</span>
+            <span
+                  style={{
+                    textDecoration: todo.isComplete ? 'line-through' : 'none', // Apply strike-through if isComplete
+                  }}
+            >
+              {todo.text}
+            </span>
               <button onClick={() => onComplete(todo.id)}>
                 {todo.isComplete ? 'Undo' : 'Complete'}
               </button>
@@ -51,6 +58,7 @@ function TodoList({ todos, onRemove, onComplete, onEdit, onSave }) {
         </li>
       ))}
     </ul>
+    </div>
   );
 }
 
