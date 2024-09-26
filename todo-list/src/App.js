@@ -55,7 +55,7 @@ function App() {
       </div>
 
       {todos.length === 0 ? (
-        <p>No todos available. Add a todo to get started!</p>
+        <p>No todos listed. Add an activity to get started!</p>
       ) : (
         <TodoList
           todos={todos}
